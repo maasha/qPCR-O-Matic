@@ -71,7 +71,6 @@ class AppContainer extends React.Component {
 
     const history = new History();
     history.load();
-    const stack = new Stack(history.last());
 
     /**
      * [state description]
@@ -83,7 +82,6 @@ class AppContainer extends React.Component {
      */
     this.state = {
       promptValue: '',
-      stack,
       history,
       keys: KEYS,
     };
@@ -97,15 +95,12 @@ class AppContainer extends React.Component {
    * React lifecycle method called when component is mounted.
    */
   componentDidMount() {
-    this.inputElement.focus();
   }
 
   /**
    * React lifecycle method called when component is updated.
    */
   componentDidUpdate() {
-    this.state.history.save();
-    this.inputElement.focus();
   }
 
   /**
@@ -113,7 +108,6 @@ class AppContainer extends React.Component {
    * @param {Object} event Input field OnChange event.
    */
   _handleOnChange(event) {
-    this.setState({ promptValue: event.target.value });
   }
 
   /**
@@ -121,16 +115,6 @@ class AppContainer extends React.Component {
    * @param {Object} event Form submit event.
    */
   _handleOnSubmit(event) {
-    const newStack = new Stack(this.state.stack.ary);
-    newStack.push(this.state.promptValue);
-
-    this.setState({
-      promptValue: '',
-      stack: newStack,
-    });
-
-    this._addToHistory();
-    event.preventDefault();
   }
 
   /**
@@ -138,17 +122,6 @@ class AppContainer extends React.Component {
    * @param {Object} event Button OnClick event.
    */
   _handleOnClick(event) {
-    const stack = new Stack(this.state.stack.ary);
-
-    const [newStack, newPromptValue] = this._calcAdaptor(
-      event.currentTarget.value,
-      stack,
-      this.state.promptValue,
-      this.state.keys,
-    );
-
-    this.setState({ stack: newStack });
-    this.setState({ promptValue: newPromptValue });
   }
 
   /**
@@ -161,92 +134,12 @@ class AppContainer extends React.Component {
    * @return {Array}              Array with newStack and newPromptValue.
    */
   _calcAdaptor(value, stack, promptValue, keys) {
-    let skipHistory = false;
-    let newPromptValue;
-
-    switch (value) {
-      case 'root':
-        stack.calcRoot();
-        break;
-      case 'exp':
-        stack.calcExp();
-        break;
-      case 'reciprocal':
-        stack.calcReciprocal();
-        break;
-      case 'add':
-        stack.calcAdd();
-        break;
-      case 'subtract':
-        if (promptValue) {
-          if (promptValue.charAt(0) !== '-') {
-            newPromptValue = `-${promptValue}`;
-            skipHistory = true;
-          } else {
-            newPromptValue = promptValue;
-          }
-        } else {
-          stack.calcSubtract();
-        }
-        break;
-      case 'multiply':
-        stack.calcMultiply();
-        break;
-      case 'divide':
-        stack.calcDivide();
-        break;
-      case 'sum':
-        stack.calcSum();
-        break;
-      case 'del':
-        newPromptValue = _chopString(promptValue);
-        break;
-      case 'clear':
-        stack.empty();
-        break;
-      case 'pop':
-        stack.pop();
-        break;
-      case 'swap':
-        stack.swap();
-        break;
-      case 'enter':
-        stack.push(promptValue);
-        break;
-      case 'undo':
-        stack = this._undoHistory();
-        skipHistory = true;
-        break;
-      default: {
-        const key = keys[value];
-        newPromptValue = promptValue + key;
-        skipHistory = true;
-        break;
-      }
-    }
-
-    newPromptValue = newPromptValue || '';
-
-    if (!skipHistory) {
-      this._addToHistory();
-    }
-
-    return [stack, newPromptValue];
   }
 
   /**
    * Add the current stack to the history if the stack is not empty.
    */
   _addToHistory() {
-    if (this.state.stack.ary.length === 0) {
-      return;
-    }
-
-    const newHistory = new History(this.state.history.ary);
-    const newStack = new Stack(JSON.parse(JSON.stringify(this.state.stack.ary)));
-
-    newHistory.push(newStack.ary);
-    this.setState({ history: newHistory });
   }
 
   /**
@@ -254,17 +147,6 @@ class AppContainer extends React.Component {
    * @return {Stack} Stack object one step back in time.
    */
   _undoHistory() {
-    if (this.state.history.ary.length === 0) {
-      return this.state.stack;
-    }
-
-    const newHistory = new History(this.state.history.ary);
-    newHistory.pop();
-    const newStack = new Stack(JSON.parse(JSON.stringify(newHistory.last())));
-
-    this.setState({ history: newHistory });
-
-    return newStack;
   }
 
   /**
@@ -283,21 +165,12 @@ class AppContainer extends React.Component {
   render() {
     return (
       <div className="app">
-        <Display
-          rows={ROWS}
-          cols={COLS}
-          stack={this.state.stack}
-        />
         <Prompt
           cols={COLS}
           promptRef={(inputElement) => { this.inputElement = inputElement; }}
           promptValue={this.state.promptValue}
           _handleOnChange={this._handleOnChange}
           _handleOnSubmit={this._handleOnSubmit}
-        />
-        <Keypad
-          keys={this.state.keys}
-          _handleOnClick={this._handleOnClick}
         />
       </div>
     );

@@ -27,7 +27,7 @@ let mainWindow;
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 360, height: 360, frame: true });
+  mainWindow = new BrowserWindow({ width: 800, height: 600, frame: true });
 
   mainWindow.setResizable(true);
 
