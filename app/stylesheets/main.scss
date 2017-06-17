@@ -1,0 +1,12 @@
+@import 'components/all';
+@import 'containers/all';
+
+body {
+  margin: 0;
+}
+
+button {
+  &:focus {
+    outline: 0;
+  }
+}

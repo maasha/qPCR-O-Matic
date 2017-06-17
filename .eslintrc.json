@@ -1,0 +1,20 @@
+{
+    "extends": "airbnb",
+    "env": {
+      "browser": true
+    },
+    "globals": {
+        "document": true
+    },
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
+    "rules": {
+      "react/require-default-props": "off",
+      "no-console": "off",
+      "no-underscore-dangle": "off",
+      "strict": "off"
+    }
+}

@@ -1,0 +1,5 @@
+test
+--require ./test/common.js ./test/helpers/jsdom.helper.js
+--reporter min
+--recursive
+--compilers jsx:babel-core/register

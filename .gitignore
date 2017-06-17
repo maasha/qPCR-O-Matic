@@ -1,0 +1,10 @@
+coverage/
+dist/
+doc/
+node_modules/
+public/js/bundle.js
+npm-debug.log
+release-builds/
+index.html
+.DS_Store
+.tags*

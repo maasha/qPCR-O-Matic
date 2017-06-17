@@ -1,0 +1,82 @@
+{
+  "name": "qPCR-O-Matic",
+  "productName": "qPCR-O-Matic",
+  "version": "0.0.1",
+  "description": "Rearrange and normalize qPCR data",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "build:dev": "webpack --env=dev --progress --profile --colors",
+    "build:prod": "webpack --env=prod --progress --profile --colors",
+    "watch": "./node_modules/.bin/webpack-dev-server --env=dev --progress --colors",
+    "test": "./node_modules/.bin/mocha",
+    "test:watch": "npm test -- --watch",
+    "report:test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report html --config=./.istanbulrc.json",
+    "report:doc": "./node_modules/.bin/esdoc",
+    "package-mac": "electron-packager . --overwrite --asar=true --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds",
+    "package-linux": "electron-packager . --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/icon.png --prune=true --out=release-builds",
+    "create-installer-mac": "electron-installer-dmg ./release-builds/qPCR-O-Matic-darwin-x64/qPCR-O-Matic.app qPCR-O-Matic-installer --out=release-builds --overwrite --icon=assets/icons/mac/icon.icns",
+    "create-installer-win": "node installers/windows/createinstaller.js"
+  },
+  "author": "Martin Asser Hansen",
+  "email": "mail@maasha.dk",
+  "keywords": [
+    "qPCR",
+    "react",
+    "electron",
+    "qPCR-O-Matic"
+  ],
+  "license": "GPL-2.0",
+  "repository": "https://github.com/maasha/qPCR-O-Matic",
+  "atomTestRunner": "atom-mocha",
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babelify": "^7.2.0",
+    "chai": "^3.5.0",
+    "classnames": "^2.2.3",
+    "electron": "^1.6.2",
+    "enzyme": "^2.8.2",
+    "html-webpack-plugin": "^2.28.0",
+    "jsdom": "^10.1.0",
+    "mocha": "^3.3.0",
+    "node-sass": "^4.5.2",
+    "prop-types": "^15.5.8",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-tooltip": "^3.3.0",
+    "sinon": "^2.2.0",
+    "sinon-chai": "^2.10.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.3.2",
+    "babel-preset-es2015": "^6.24.0",
+    "css-loader": "^0.28.0",
+    "electron-installer-dmg": "^0.2.1",
+    "electron-packager": "^8.6.0",
+    "electron-react-devtools": "^0.4.0",
+    "electron-winstaller": "^2.5.2",
+    "esdoc": "^0.5.2",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "ink-docstrap": "^1.3.0",
+    "istanbul": "^1.1.0-alpha.1",
+    "react-test-renderer": "^15.5.4",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
+    "webpack": "^2.3.3",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  }
+}

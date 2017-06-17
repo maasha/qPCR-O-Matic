@@ -1,0 +1,16 @@
+.prompt {
+
+  input {
+    background-color: $display-background-color;
+    box-sizing: border-box;
+    font-family: 'Courier New';
+    font-size: 1em;
+    font-weight: bold;
+    height: 30px;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
