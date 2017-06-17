@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import History from '../utils/history.util';
-import Stack from '../utils/stack.util';
 import Prompt from '../components/prompt.component';
-import Display from '../components/display.component';
-import Keypad from '../components/keypad.component';
 
 /**
  * Number of rows in the textarea used in the Display component.

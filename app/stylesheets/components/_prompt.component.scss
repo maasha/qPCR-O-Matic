@@ -1,5 +1,6 @@
-.prompt {
+$display-background-color: #7f7f7f;
 
+.prompt {
   input {
     background-color: $display-background-color;
     box-sizing: border-box;
