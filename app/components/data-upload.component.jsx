@@ -6,9 +6,17 @@ class DataUpload extends React.Component {
   render() {
     return (
       <section className="data-upload">
-        <Dropzone onDrop={this.props._handleOnDrop}>
-          <p>Drop files here or click to select files to upload.</p>
-        </Dropzone>
+        <div className="inline">
+          <Dropzone onDrop={this.props._handleOnDrop}>
+            <p>Drop files here or click to select files to upload.</p>
+          </Dropzone>
+          <Dropzone onDrop={this.props._handleOnDrop}>
+            <p>Drop files here or click to select files to upload.</p>
+          </Dropzone>
+          <Dropzone onDrop={this.props._handleOnDrop}>
+            <p>Drop files here or click to select files to upload.</p>
+          </Dropzone>
+        </div>
       </section>
     );
   }
